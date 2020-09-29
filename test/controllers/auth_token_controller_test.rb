@@ -13,7 +13,7 @@ class AuthTokenControllerTest < ActionDispatch::IntegrationTest
       }
     }, as: :json
 
-    assert_response 200
+    assert_response :ok
     assert_equal(@user.token, response.parsed_body)
   end
 
@@ -25,7 +25,7 @@ class AuthTokenControllerTest < ActionDispatch::IntegrationTest
       }
     }, as: :json
 
-    assert_response 401
+    assert_response :unauthorized
   end
 
   test "メールアドレスが間違えている" do
@@ -36,6 +36,6 @@ class AuthTokenControllerTest < ActionDispatch::IntegrationTest
       }
     }, as: :json
 
-    assert_response 401
+    assert_response :unauthorized
   end
 end

@@ -4,11 +4,18 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   setup do
     @new_user = FactoryBot.build(:user)
     @user = FactoryBot.create(:user)
+    @headers = { "Authorization": "Token #{@user.token}" }
   end
 
   test "should get index" do
-    get users_url, as: :json, headers: { "Authorization": "Token #{@user.token}" }
+    get users_url, as: :json, headers: @headers
     assert_response :success
+
+    get users_url, as: :json, headers: { "Authorization": "Token wrong_token" }
+    assert_response :unauthorized
+
+    get users_url, as: :json
+    assert_response :unauthorized
   end
 
   test "should create user" do
@@ -22,11 +29,11 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
       }, as: :json
     end
 
-    assert_response 201
+    assert_response :created
   end
 
   test "should show user" do
-    get user_url(@user), as: :json, headers: { "Authorization": "Token #{@user.token}" }
+    get user_url(@user), as: :json, headers: @headers
     assert_response :success
   end
 
@@ -38,16 +45,14 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
         password_confirmation: @user.password_confirmation
       }
     },
-    as: :json,
-    headers: { "Authorization": "Token #{@user.token}" }
-    assert_response 200
+    as: :json, headers: @headers
+    assert_response :success
   end
 
   test "should destroy user" do
     assert_difference('User.count', -1) do
-      delete user_url(@user), as: :json, headers: { "Authorization": "Token #{@user.token}" }
+      delete user_url(@user), as: :json, headers: @headers
     end
-
-    assert_response 204
+    assert_response :no_content
   end
 end
