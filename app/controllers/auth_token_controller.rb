@@ -6,7 +6,7 @@ class AuthTokenController < ApplicationController
     if user && user.authenticate(user_params[:password])
       render plain: user.token
     else
-      render status: :unauthorized
+      head :unauthorized
     end
   end
 
