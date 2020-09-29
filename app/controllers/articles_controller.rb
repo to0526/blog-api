@@ -1,5 +1,6 @@
 class ArticlesController < ApplicationController
   before_action :set_article, only: [:show, :update, :destroy]
+  skip_before_action :authenticate, only: [:index, :show]
 
   # GET /articles
   def index
