@@ -22,3 +22,24 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+## API動作確認
+
+### ユーザ登録
+```
+curl -X POST -H 'Content-Type:application/json' \
+-d '{"user": {"email":"test@example.com", "password":"password", "password_confirmation":"password"}}' \
+localhost:3000/users
+```
+
+### ユーザ一覧取得
+```
+curl -H 'Authorization: Token [トークン]' localhost:3000/users
+```
+
+### ログイン
+```
+curl -X POST -H 'Content-Type:application/json' \
+-d '{"user": {"email":"test@example.com", "password":"password"}}' \
+localhost:3000/sign_in
+```
