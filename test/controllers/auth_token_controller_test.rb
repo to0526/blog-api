@@ -12,7 +12,6 @@ class AuthTokenControllerTest < ActionDispatch::IntegrationTest
         password: @user.password
       }
     }, as: :json
-
     assert_response :ok
     assert_equal(@user.token, response.parsed_body)
   end
@@ -24,7 +23,6 @@ class AuthTokenControllerTest < ActionDispatch::IntegrationTest
         password: "wrong_password"
       }
     }, as: :json
-
     assert_response :unauthorized
   end
 
@@ -35,7 +33,6 @@ class AuthTokenControllerTest < ActionDispatch::IntegrationTest
         password: @user.password
       }
     }, as: :json
-
     assert_response :unauthorized
   end
 end
