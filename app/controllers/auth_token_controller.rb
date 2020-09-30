@@ -4,7 +4,7 @@ class AuthTokenController < ApplicationController
   def create
     user = User.find_by(email: user_params[:email])
     if user && user.authenticate(user_params[:password])
-      render plain: user.token
+      render json: { token: user.token }
     else
       head :unauthorized
     end
