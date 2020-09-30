@@ -6,7 +6,7 @@ class AuthTokenController < ApplicationController
     if user && user.authenticate(user_params[:password])
       render json: { token: user.token }
     else
-      head :unauthorized
+      head 204
     end
   end
 
